@@ -5,10 +5,11 @@ from wtforms.validators import DataRequired, Length, Optional
 class UserInfoForm(FlaskForm):
     countries = [("South Korea", "South Korea"), ("Vietnam", "Vietnam")]  # Add more countries as needed
     durations = [
-        ("less_than_1_month", "Less than 1 month"),
-        ("1_to_3_months", "More than 1 month, less than 3 months"),
-        ("3_to_12_months", "More than 3 months, less than 1 year"),
-        ("more_than_1_year", "More than 1 year")
+        ('< 30 days', 'Less than 30 days'), 
+        ('30-90 days', '30-90 days'), 
+        ('91-180 days', '91-180 days'), 
+        ('181-365 days', '181-365 days'),
+        ('> 365 days', 'More than 365 days')
     ]
     purposes = [("Travel", "Travel"), ("Business", "Business")]
 
@@ -17,6 +18,15 @@ class UserInfoForm(FlaskForm):
     purpose_of_visit = SelectField('Purpose of Visit', choices=purposes)
     duration_of_stay = SelectField('Duration of Stay', choices=durations)
     submit = SubmitField('Submit')
+
+class VisaCostForm(FlaskForm):
+    entry_frequency = SelectField('Entry Frequency', choices=[('Single Entry', 'Single Entry'), ('Multiple Entry', 'Multiple Entry')], validators=[DataRequired()])
+    cost = FloatField('Cost', validators=[DataRequired()])
+    currency = SelectField('Currency', choices=[('USD', 'USD'), ('VND', 'VND'), ('EUR', 'EUR')], validators=[DataRequired()])
+
+from flask_wtf import FlaskForm
+from wtforms import StringField, FloatField, SelectField, SelectMultipleField, FieldList, FormField, SubmitField
+from wtforms.validators import DataRequired, Length, Optional
 
 class VisaCostForm(FlaskForm):
     entry_frequency = SelectField('Entry Frequency', choices=[('Single Entry', 'Single Entry'), ('Multiple Entry', 'Multiple Entry')], validators=[DataRequired()])

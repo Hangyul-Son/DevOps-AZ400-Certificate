@@ -1,29 +1,68 @@
 {% extends "base.html" %}
-{% block title %}Submit Information{% endblock %}
+
+{% block title %}User Information{% endblock %}
+
 {% block content %}
 <div class="container">
     <h2>Submit Your Information</h2>
     <form method="POST" action="">
         {{ form.hidden_tag() }}
         <div class="form-group">
-            {{ form.nationality.label }}
-            {{ form.nationality(class="form-control") }}
+            {{ form.nationality.label }} {{ form.nationality(class="form-control") }}
         </div>
         <div class="form-group">
-            {{ form.destination_country.label }}
-            {{ form.destination_country(class="form-control") }}
+            {{ form.destination_country.label }} {{ form.destination_country(class="form-control") }}
         </div>
         <div class="form-group">
-            {{ form.purpose_of_visit.label }}
-            {{ form.purpose_of_visit(class="form-control") }}
+            {{ form.duration_of_stay.label }} {{ form.duration_of_stay(class="form-control") }}
         </div>
         <div class="form-group">
-            {{ form.duration_of_stay.label }}
-            {{ form.duration_of_stay(class="form-control") }}
+            {{ form.purpose_of_visit.label }} {{ form.purpose_of_visit(class="form-control") }}
         </div>
         <div class="form-group">
             {{ form.submit(class="btn btn-primary") }}
         </div>
     </form>
+
+    {% if visas %}
+    <h2>Available Visas</h2>
+    <div class="row">
+        {% for visa in visas %}
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ visa.visa_type }} Visa</h5>
+                    <p class="card-text"><strong>Nationality:</strong> {{ visa.nationality }}</p>
+                    <p class="card-text"><strong>Destination Country:</strong> {{ visa.destination_country }}</p>
+                    <p class="card-text"><strong>Max Duration:</strong> {{ visa.validity_period }}</p>
+                    <p class="card-text"><strong>Purposes:</strong> 
+                        <ul>
+                            {% for purpose in visa.purposes %}
+                            <li>{{ purpose.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </p>
+                    <p class="card-text"><strong>Entry Frequencies:</strong>
+                        <ul>
+                            {% for cost in visa.costs %}
+                            <li>{{ cost.entry_frequency }}: {{ cost.cost }} {{ cost.currency }}</li>
+                            {% endfor %}
+                        </ul>
+                    </p>
+                    <p class="card-text"><strong>Required Documents:</strong> 
+                        <ul>
+                            {% for document in visa.required_documents %}
+                            <li>{{ document.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </p>
+                    <p class="card-text"><strong>Processing Days:</strong> {{ visa.processing_time }}</p>
+                    <p class="card-text"><strong>Application Methods:</strong> {{ visa.application_method }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
