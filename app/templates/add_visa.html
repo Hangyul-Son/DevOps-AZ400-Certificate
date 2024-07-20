@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Add Visa Information{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Add Visa Information</h2>
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.nationality.label }} {{ form.nationality(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.destination_country.label }} {{ form.destination_country(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.visa_type.label }} {{ form.visa_type(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.validity_period.label }} {{ form.validity_period(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.processing_time.label }} {{ form.processing_time(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.application_method.label }} {{ form.application_method(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.purposes.label }} {{ form.purposes(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.required_documents.label }} {{ form.required_documents(class="form-control") }}
+        </div>
+        <div class="form-group">
+            <h4>Costs</h4>
+            {% for cost_form in form.costs %}
+            <div class="form-group">
+                {{ cost_form.entry_frequency.label }} {{ cost_form.entry_frequency(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ cost_form.cost.label }} {{ cost_form.cost(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ cost_form.currency.label }} {{ cost_form.currency(class="form-control") }}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+</div>
+{% endblock %}

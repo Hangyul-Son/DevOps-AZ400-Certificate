@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Visa Information{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Visa Information</h2>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ visa.visa_type }} Visa</h5>
+            <p class="card-text"><strong>Nationality:</strong> {{ visa.nationality }}</p>
+            <p class="card-text"><strong>Destination Country:</strong> {{ visa.destination_country }}</p>
+            <p class="card-text"><strong>Max Duration:</strong> {{ visa.validity_period }}</p>
+            <p class="card-text"><strong>Processing Time:</strong> {{ visa.processing_time }}</p>
+            <p class="card-text"><strong>Application Methods:</strong> {{ visa.application_method }}</p>
+            <p class="card-text"><strong>Purposes:</strong>
+                <ul>
+                    {% for purpose in purposes %}
+                    <li>{{ purpose }}</li>
+                    {% endfor %}
+                </ul>
+            </p>
+            <p class="card-text"><strong>Required Documents:</strong>
+                <ul>
+                    {% for document in documents %}
+                    <li>{{ document }}</li>
+                    {% endfor %}
+                </ul>
+            </p>
+            <p class="card-text"><strong>Costs:</strong>
+                <ul>
+                    {% for cost in costs %}
+                    <li>{{ cost.entry_frequency }}: {{ cost.cost }} {{ cost.currency }}</li>
+                    {% endfor %}
+                </ul>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
